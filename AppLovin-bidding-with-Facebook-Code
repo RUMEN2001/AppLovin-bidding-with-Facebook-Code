@@ -1,0 +1,89 @@
+=========Code Start=======================================================================================================================================
+
+//1. Manifast Permission
+  
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+    
+//2. Manifast Acitivity 
+
+          <meta-data android:name="applovin.sdk.key"
+           android:value=""/>
+    
+//3. dependencies 
+
+    implementation 'com.applovin:applovin-sdk:+'
+    implementation 'com.applovin.mediation:facebook-adapter:+'
+    
+----------// Activity.java
+
+//AppLovin Ads initialize Start ===================================
+
+        AppLovinSdk.getInstance(MainActivity.this).setMediationProvider("max");
+        AppLovinSdk.initializeSdk(MainActivity.this, new AppLovinSdk.SdkInitializationListener() {
+            @Override
+            public void onSdkInitialized(final AppLovinSdkConfiguration configuration) {
+                
+            }
+        });     
+        
+        LoadInterstitialAd();
+        
+        
+//AppLovin Ads initialize End ===================================
+
+-------------//showInterstitial Ads Start===============================================================================================================================
+
+      4.   
+      
+      private MaxInterstitialAd interstitialAd;
+      
+      5.     
+      
+      private void LoadInterstitialAd() {
+
+        interstitialAd = new MaxInterstitialAd( "YOUR_AD_UNIT_ID", this );
+        interstitialAd.setListener( this );
+        interstitialAd.loadAd();
+        }
+         
+      6.
+      
+                     //InterstitialAd Show ===================
+                     
+                  if ( interstitialAd.isReady() )
+                     {
+                       interstitialAd.showAd();
+
+                        //code here
+                        LoadInterstitialAd();
+                     }
+                     
+                     //InterstitialAd Show ===================
+                
+       7. Load Again
+       
+        interstitialAd.loadAd();
+                
+                
+==========//showInterstitial Ads End==============================================================================================
+
+    
+    //==================Network Security Config.xml code in xml folder Start=============================
+    
+    <?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    ...
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">127.0.0.1</domain>
+    </domain-config>
+    ...
+</network-security-config>
+
+//==================Network Security Config.xml code in xml folder End=============================
+     
+
+=========code End======================================================================================================================================
+
